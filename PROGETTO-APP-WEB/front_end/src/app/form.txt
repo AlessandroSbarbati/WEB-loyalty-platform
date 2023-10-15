@@ -1,0 +1,76 @@
+<div class="login-page">
+  <mat-card class="mat-elevation-z12">
+    <mat-card-title style="text-align:center;">Crea Premio</mat-card-title>
+    <mat-tab-group mat-stretch-tabs class="example-stretched-tabs">
+      <mat-tab>
+        <mat-card-content>
+          <form [formGroup]="form">
+            <mat-form-field>
+              <input matInput placeholder="tipo" formControlName="tipo">
+              <mat-icon matSuffix>tipo</mat-icon>
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="nomeRegalo"  formControlName="nomeRegalo">
+              
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="descrizione" formControlName="descrizione">
+              
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="numeroPunti"  formControlName="numeroPunti">
+              
+            </mat-form-field>
+            <mat-form-field>
+              <input matInput placeholder="numeroLivelli"  formControlName="numeroLivelli">
+              <mat-icon matSuffix>lock</mat-icon>
+            </mat-form-field>
+
+            <button mat-raised-button color="primary" class="login-button">
+              Sign In
+            </button>
+          </form>
+        </mat-card-content>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-card>
+</div>
+
+.login-page {
+  background-size: cover;
+  top: 0;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  background-color: #303F9F;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden;
+}
+
+mat-card {
+  width: 30%;
+  margin: 10% auto;
+  border-radius: 8px;
+}
+
+mat-form-field,
+mat-checkbox {
+  width: 80%;
+  display: block;
+  margin: auto;
+}
+
+mat-card-content {
+  margin-top: 20px;
+}
+
+.login-button {
+  margin-top: 20px;
+  display: block;
+  width: 80%;
+  margin: 20px auto;
+}

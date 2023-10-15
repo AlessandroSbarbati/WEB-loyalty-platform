@@ -1,0 +1,215 @@
+<nav class="navbar navbar-expand-lg fixed-top  " style="padding-left: 10px; background-color:black;  "  >
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+       <ul class="navbar-nav mb-2 mb-lg-0 mx-auto " style="align-items: baseline;">
+
+          <a class="navbar-brand" href="#" style="font-size: 30px; color: white;">Home</a>
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/#logout" style="color: white;">Logout</a>
+         </li>
+
+         <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/mainpage" style="color: white;">Indietro</a>
+        </li>
+        
+          
+             <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false" style="color: white;">
+                   Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                   <li><a class="dropdown-item" href="#">Info</a></li>
+                   <li><a class="dropdown-item" href="#">Assistenza</a></li>
+                   <li><a class="dropdown-item" href="#">Guida</a></li>
+                   <li>
+                      <hr class="dropdown-divider">
+                   </li>
+                   <li><a class="dropdown-item" href="#">Impostazioni</a></li>
+                </ul>
+             </li>
+   
+
+       </ul>
+       <br><br><br>
+    </div>
+ </nav>
+<div  *ngIf="!isEmployee && userType && possiediCarta" style=" padding: 100px;">
+    <h2>CARTA FEDELTA'</h2>
+   <div *ngIf="card && userType ">
+    <mat-card class="example-card">
+        <mat-card-header>
+            
+            <mat-card-title>ID CARTA: {{card.id}}</mat-card-title>
+            <mat-card-subtitle> PUNT DISPONIBILI:{{card.punti}}</mat-card-subtitle>
+        </mat-card-header>
+        <img mat-card-image src="https://www.centrocard.it/img/Card/Bishop_retro_big.jpg" alt="carta fedeltà">
+        <mat-card-content>
+            <p>
+            CARTA FEDELTA' HIGH TECH 
+            </p>
+        </mat-card-content>
+    </mat-card>
+   </div>
+
+</div>
+
+<div *ngIf="!isEmployee && userType && !possiediCarta">
+    <h2 >"NON POSSIEDI LA CARTA"</h2>
+   </div>
+    
+
+<!-------------- CARD EMPLOYEE ------------->
+
+<div *ngIf="isEmployee && userType">
+   <div class="container justify-content-center align-items-center" style="margin-top: 120px;">
+ 
+        <!-------------- CREA CARTA ------------->
+        <div *ngIf="MostraCreaCarta">
+            <h4 class="text-center">Crea Carta</h4>
+            <ul class="nav nav-tabs" id="creaCartaTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="creaCartaTab" data-toggle="tab" role="tab" aria-controls="creaCartaContent" aria-selected="true">Crea Carta</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="creaCartaTabsContent">
+                <div class="tab-pane fade show active" id="creaCartaContent" role="tabpanel" aria-labelledby="creaCartaTab">
+                    <form [formGroup]="form">
+                        <div class="mb-3">
+                            <label for="nome" class="form-label">Nome</label>
+                            <input type="text" class="form-control" id="nome" formControlName="nome">
+                        </div>
+                        <div class="mb-3">
+                            <label for="cognome" class="form-label">Cognome</label>
+                            <input type="text" class="form-control" id="cognome" formControlName="cognome">
+                        </div>
+                        <div class="mb-3">
+                            <label for="codice" class="form-label">Codice</label>
+                            <input type="number" class="form-control" id="codice" formControlName="codice">
+                        </div>
+                        <div class="mb-3">
+                            <label for="punti" class="form-label">Punti</label>
+                            <input type="number" class="form-control" id="punti" formControlName="punti">
+                        </div>
+                        <button type="button" class="btn btn-primary" (click)="button()">
+                            Crea
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+        <!-------------- SOTTRAI PUNTI ------------->
+        <div *ngIf="mostraSottraiCarta">
+            <h4 class="text-center">Sottrai Punti</h4>
+            <ul class="nav nav-tabs" id="sottraiPuntiTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="sottraiPuntiTab" data-toggle="tab" role="tab" aria-controls="sottraiPuntiContent" aria-selected="true">Sottrai Punti</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="sottraiPuntiTabsContent">
+                <div class="tab-pane fade show active" id="sottraiPuntiContent" role="tabpanel" aria-labelledby="sottraiPuntiTab">
+                    <form [formGroup]="secondoForm">
+                        <div class="mb-3">
+                            <label for="codice" class="form-label">Codice</label>
+                            <input type="text" class="form-control" id="codice" formControlName="codice" placeholder="codice">
+                        </div>
+                        <div class="mb-3">
+                            <label for="punti" class="form-label">Punti</label>
+                            <input type="text" class="form-control" id="punti" formControlName="punti" placeholder="punti">
+                        </div>
+                        <button type="button" class="btn btn-primary" (click)="button3()">Togli</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    
+        <!-- AGGIUNGI PUNTI -->
+        <div *ngIf="mostraAggiungiCarta">
+            <h4 class="text-center">Aggiungi Punti</h4>
+            <ul class="nav nav-tabs" id="aggiungiPuntiTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="aggiungiPuntiTab" data-toggle="tab" role="tab" aria-controls="aggiungiPuntiContent" aria-selected="true">Aggiungi Punti</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="aggiungiPuntiTabsContent">
+                <div class="tab-pane fade show active" id="aggiungiPuntiContent" role="tabpanel" aria-labelledby="aggiungiPuntiTab">
+                    <form [formGroup]="terzoForm">
+                        <div class="mb-3">
+                            <label for="codice" class="form-label">Codice</label>
+                            <input type="text" class="form-control" id="codice" formControlName="codice" placeholder="codice">
+                        </div>
+                        <div class="mb-3">
+                            <label for="punti" class="form-label">Punti</label>
+                            <input type="text" class="form-control" id="punti" formControlName="punti" placeholder="punti">
+                        </div>
+                        <button type="button" class="btn btn-primary" (click)="button2()">Aggiungi</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    
+        <!-- VISUALIZZA CARTE -->
+        <table class="table table-hover" *ngIf="mostraVisualizzaCarta">
+            <thead>
+                <tr>
+                    <th>id</th>
+                    <th>idUtente</th>
+                    <th>codice</th>
+                    <th>punti</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let element of carteUtenti">
+                    <td>{{ element.id }}</td>
+                    <td>{{ element.idUtente }}</td>
+                    <td>{{ element.codice }}</td>
+                    <td>{{ element.punti }}</td>
+                </tr>
+            </tbody>
+        </table>
+        
+    
+        <!-- ELIMINA CARTE -->
+    
+        <div *ngIf="mostraEliminaCarta">
+            <h4 class="text-center">Elimina Carta</h4>
+            <ul class="nav nav-tabs" id="eliminaCartaTabs">
+                <li class="nav-item">
+                    <a class="nav-link active" id="eliminaCartaTab" data-toggle="tab" role="tab" aria-controls="eliminaCartaContent" aria-selected="true">Elimina Carta</a>
+                </li>
+            </ul>
+            <div class="tab-content" id="eliminaCartaTabsContent">
+                <div class="tab-pane fade show active" id="eliminaCartaContent" role="tabpanel" aria-labelledby="eliminaCartaTab">
+                    <form [formGroup]="quartoForm">
+                        <div class="mb-3">
+                            <label for="id" class="form-label">ID</label>
+                            <input type="text" class="form-control" id="id" formControlName="id" placeholder="id">
+                        </div>
+                        <button type="button" class="btn btn-primary" (click)="buttondelete()">
+                            Elimina
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        
+    
+        <button mat-button class="custom-button" (click)="creaCarte()"> CREA CARTA</button>
+        <button mat-button class="custom-button" (click)="mostraEliminaCarte() "> ELIMINA CARTA</button>
+        <button mat-button class="custom-button" (click)="mostraVisualizzaCarte()"> VISUALIZZA CARTE</button>
+        <button mat-button class="custom-button" (click)="mostraAggiungiCarte()"> AGGIUNGI PUNTI </button>
+        <button mat-button class="custom-button" (click)="mostraSottraiCarte()"> SOTTRAI PUNTI </button>
+   </div>
+
+
+
+
+</div>

@@ -1,0 +1,192 @@
+
+<nav class="navbar navbar-expand-lg fixed-top  " style="padding-left: 10px; background-color:black;  "  >
+
+  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+     aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+     <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse " id="navbarSupportedContent">
+     <ul class="navbar-nav mb-2 mb-lg-0 mx-auto " style="align-items: baseline;">
+
+        <a class="navbar-brand" href="#" style="font-size: 30px; color: white;">Home</a>
+
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="/#logout" style="color: white;">Logout</a>
+       </li>
+
+       <li class="nav-item">
+        <a class="nav-link active" aria-current="page" routerLink="/mainpage" style="color: white;">Indietro</a>
+    </li>    
+        
+           <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                 aria-expanded="false" style="color: white;">
+                 Dropdown
+              </a>
+              <ul class="dropdown-menu">
+                 <li><a class="dropdown-item" href="#">Info</a></li>
+                 <li><a class="dropdown-item" href="#">Assistenza</a></li>
+                 <li><a class="dropdown-item" href="#">Guida</a></li>
+                 <li>
+                    <hr class="dropdown-divider">
+                 </li>
+                 <li><a class="dropdown-item" href="#">Impostazioni</a></li>
+              </ul>
+           </li>
+ 
+
+     </ul>
+     <br><br><br>
+  </div>
+ </nav>
+<!--------------SEZIONE REGALO EMPLOYEE ------------->
+<div *ngIf="isEmployee && userType style" style="padding: 100px;">
+  <div class="row">
+    <div class="col-4 text-center">
+
+        <button  class="custom-button  btn btn-primary " (click)="mostraCreaGift()"> CREA REGALO </button>
+    </div>
+    <div class="col-4 text-center">
+        <button  class="custom-button btn btn-primary" (click)="eliminaRegali()"> ELIMINA REGALO </button>
+
+    </div>
+    <div class="col-4 text-center">
+        <button  class="custom-button btn btn-primary " (click)="mostraRegali()"> VISUALIZZA REGALI </button>
+
+    </div>
+</div>
+  
+    <!--------------CREA REGALO  ------------->
+  
+    <div *ngIf="creaRegalo">
+      <h4 class="text-center">Crea Regalo</h4>
+      <ul class="nav nav-tabs" id="creaRegaloTabs">
+          <li class="nav-item">
+              <a class="nav-link active" id="creaRegaloTab" data-toggle="tab" href="#creaRegaloContent" role="tab" aria-controls="creaRegaloContent" aria-selected="true">Crea Regalo</a>
+          </li>
+      </ul>
+      <div class="tab-content" id="creaRegaloTabsContent">
+          <div class="tab-pane fade show active" id="creaRegaloContent" role="tabpanel" aria-labelledby="creaRegaloTab">
+              <form [formGroup]="form">
+                  <div class="mb-3">
+                      <label for="nomeRegalo" class="form-label">Nome del Regalo</label>
+                      <input type="text" class="form-control" id="nomeRegalo" formControlName="nomeRegalo">
+                  </div>
+                  <div class="mb-3">
+                      <label for="descrizione" class="form-label">Descrizione</label>
+                      <input type="text" class="form-control" id="descrizione" formControlName="descrizione">
+                  </div>
+                  <div class="mb-3">
+                      <label for="numeroPunti" class="form-label">Numero di Punti</label>
+                      <input type="number" class="form-control" id="numeroPunti" formControlName="numeroPunti">
+                  </div>
+                  <button type="button" class="btn btn-primary" (click)="button()">
+                      Crea
+                  </button>
+              </form>
+          </div>
+      </div>
+  </div>
+  
+  
+    <!--------------ELIMINA REGALO  ------------->
+  
+    <div *ngIf="eliminaRegalo">
+      <h4 class="text-center">Elimina Regalo</h4>
+      <ul class="nav nav-tabs" id="eliminaRegaloTabs">
+          <li class="nav-item">
+              <a class="nav-link active" id="eliminaRegaloTab" data-toggle="tab" href="#eliminaRegaloContent" role="tab" aria-controls="eliminaRegaloContent" aria-selected="true">Elimina Regalo</a>
+          </li>
+      </ul>
+      <div class="tab-content" id="eliminaRegaloTabsContent">
+          <div class="tab-pane fade show active" id="eliminaRegaloContent" role="tabpanel" aria-labelledby="eliminaRegaloTab">
+              <form [formGroup]="form2">
+                  <div class="mb-3">
+                      <label for="nomeRegalo" class="form-label">Nome del Regalo</label>
+                      <input type="text" class="form-control" id="nomeRegalo" formControlName="nomeRegalo">
+                  </div>
+                  <button type="button" class="btn btn-primary" (click)="buttonDelete()">
+                      ELIMINA
+                  </button>
+              </form>
+          </div>
+      </div>
+  </div>
+  
+  
+    <!--------------MOSTRA REGALI  ------------->
+  
+    <div class="card-container text-center" *ngIf="mostraRegalo">
+      <div class="row justify-content-center align-items-center">
+        <div *ngFor="let gift of cardGift" class="col-md-6 col-lg-4 col-xl-2 mb-4 mt-4" >
+          <div class="card">
+            <img src="https://freeiconshop.com/wp-content/uploads/edd/gift-flat.png" class="card-img-top" alt="foto regalo">
+            <div class="card-body">
+              <h5 class="card-title">{{ gift.nomeRegalo }}</h5>
+              <h6 class="card-subtitle mb-2 text-muted">PUNTI: {{ gift.numeroPunti }}</h6>
+              <p class="card-text">{{ gift.descrizione }}</p>
+              <!-- <button class="btn btn-primary" (click)="modificaRegali(gift.id)">MODIFICA</button> -->
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+  
+    <!-- <div *ngIf="modificaRegalo">
+      <h4 class="text-center">Modifica Regalo</h4>
+      <ul class="nav nav-tabs" id="modificaRegaloTabs">
+          <li class="nav-item">
+              <a class="nav-link active" id="modificaRegaloTab" data-toggle="tab" href="#modificaRegaloContent" role="tab" aria-controls="modificaRegaloContent" aria-selected="true">Modifica Regalo</a>
+          </li>
+      </ul>
+      <div class="tab-content" id="modificaRegaloTabsContent">
+          <div class="tab-pane fade show active" id="modificaRegaloContent" role="tabpanel" aria-labelledby="modificaRegaloTab">
+              <form [formGroup]="form">
+                  <div class="mb-3">
+                      <label for="nomeRegalo" class="form-label">Nome del Regalo</label>
+                      <input type="text" class="form-control" id="nomeRegalo" formControlName="nomeRegalo">
+                  </div>
+                  <div class="mb-3">
+                      <label for="descrizione" class="form-label">Descrizione</label>
+                      <input type="text" class="form-control" id="descrizione" formControlName="descrizione">
+                  </div>
+                  <div class="mb-3">
+                      <label for="numeroPunti" class="form-label">Numero di Punti</label>
+                      <input type="number" class="form-control" id="numeroPunti" formControlName="numeroPunti">
+                  </div>
+                  <button type="button" class="btn btn-primary" (click)="button()">
+                      Modifica
+                  </button>
+              </form>
+          </div>
+      </div> -->
+  <!-- </div> -->
+  
+  
+  </div>
+  
+  
+  
+  
+  <!-------------- SEZIONE REGALO USER ------------->
+  
+  <div *ngIf="!isEmployee && userType">
+    <div class="container justify-content-center align-items-center" style="margin-top: 200px;"> 
+      <div class="card-container text-center" >
+        <div class="row justify-content-center align-items-center">
+          <div *ngFor="let gift of cardGift" class="col-md-6 col-lg-4 col-xl-2 mb-4 mt-4" >
+            <div class="card">
+              <img src="https://freeiconshop.com/wp-content/uploads/edd/gift-flat.png" class="card-img-top" alt="foto regalo">
+              <div class="card-body">
+                <h5 class="card-title">{{ gift.nomeRegalo }}</h5>
+                <h6 class="card-subtitle mb-2 text-muted">PUNTI: {{ gift.numeroPunti }}</h6>
+                <p class="card-text">{{ gift.descrizione }}</p>
+                <button class="btn btn-primary" >LOREM</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

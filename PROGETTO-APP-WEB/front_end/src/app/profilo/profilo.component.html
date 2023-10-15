@@ -1,0 +1,254 @@
+<nav class="navbar navbar-expand-lg fixed-top  " style="padding-left: 10px; background-color:black;  "  >
+
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
+       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+       <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarSupportedContent">
+       <ul class="navbar-nav mb-2 mb-lg-0 mx-auto " style="align-items: baseline;">
+
+          <a class="navbar-brand" href="#" style="font-size: 30px; color: white;">Home</a>
+
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="/#logout" style="color: white;">Logout</a>
+         </li>
+
+         <li class="nav-item">
+            <a class="nav-link active" aria-current="page" routerLink="/mainpage" style="color: white;">Indietro</a>
+        </li>
+        
+          
+             <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                   aria-expanded="false" style="color: white;">
+                   Dropdown
+                </a>
+                <ul class="dropdown-menu">
+                   <li><a class="dropdown-item" href="#">Info</a></li>
+                   <li><a class="dropdown-item" href="#">Assistenza</a></li>
+                   <li><a class="dropdown-item" href="#">Guida</a></li>
+                   <li>
+                      <hr class="dropdown-divider">
+                   </li>
+                   <li><a class="dropdown-item" href="#">Impostazioni</a></li>
+                </ul>
+             </li>
+   
+
+       </ul>
+       <br><br><br>
+    </div>
+ </nav>
+
+<div class="profilo" *ngIf="isEmployee && userType" style="padding: 100px;">
+ 
+    <h2> I tuoi clienti </h2>
+    
+                        <!-- ELIMINA UTENTI -->
+
+                        <div *ngIf="eliminaUtente">
+                            <h4 class="text-center">Elimina Utente</h4>
+                            <ul class="nav nav-tabs" id="eliminaUtenteTabs">
+                                <li class="nav-item">
+                                    <a class="nav-link active" id="eliminaUtenteTab" data-toggle="tab" href="#eliminaUtenteContent" role="tab" aria-controls="eliminaUtenteContent" aria-selected="true">Elimina Utente</a>
+                                </li>
+                            </ul>
+                            <div class="tab-content" id="eliminaUtenteTabsContent">
+                                <div class="tab-pane fade show active" id="eliminaUtenteContent" role="tabpanel" aria-labelledby="eliminaUtenteTab">
+                                    <form [formGroup]="form">
+                                        <div class="mb-3">
+                                            <label for="nome" class="form-label">Nome</label>
+                                            <input type="text" class="form-control" id="nome" formControlName="nome">
+                                        </div>
+                                        <div class="mb-3">
+                                            <label for="email" class="form-label">Email</label>
+                                            <input type="email" class="form-control" id="email" formControlName="email" aria-describedby="emailHelp">
+                                        </div>
+                                        <button type="button" class="btn btn-primary" (click)="buttondelete()">
+                                            Elimina
+                                        </button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        
+
+                        <!-- CREA UTENTI -->
+                        <div *ngIf="creaUtente">
+                            <form [formGroup]="form">
+                                <div class="mb-3">
+                                    <label for="nome" class="form-label">Nome</label>
+                                    <input type="text" class="form-control" id="nome" formControlName="nome">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="cognome" class="form-label">Cognome</label>
+                                    <input type="text" class="form-control" id="cognome" formControlName="cognome">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="email" class="form-label">Email</label>
+                                    <input type="email" class="form-control" id="email" formControlName="email" aria-describedby="emailHelp">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="password" class="form-label">Password</label>
+                                    <input type="password" class="form-control" id="password" formControlName="password">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="repassword" class="form-label">Conferma Password</label>
+                                    <input type="password" class="form-control" id="repassword" formControlName="repassword">
+                                </div>
+                                <button type="submit" class="btn btn-primary" (click)="button()">Crea</button>
+                            </form>
+                        </div>
+                        
+                       
+                      
+                        <!-- TABELLA UTENTI -->
+
+                        <div class="table-responsive" *ngIf="mostraCarta">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Id</th>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Cognome</th>
+                                        <th scope="col">Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let element of TabUser">
+                                        <td>{{ element.id }}</td>
+                                        <td>{{ element.nome }}</td>
+                                        <td>{{ element.cognome }}</td>
+                                        <td>{{ element.email }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+
+
+
+                        
+    <div class="row">
+        <div class="col-4 text-center">
+
+            <button  class="custom-button  btn btn-primary " (click)="mostraUtenti()"> VISUALIZZA UTENTI </button>
+        </div>
+        <div class="col-4 text-center">
+            <button  class="custom-button btn btn-primary" (click)="creaUtenti()"> CREA UTENTI </button>
+
+        </div>
+        <div class="col-4 text-center">
+            <button  class="custom-button btn btn-primary " (click)="eliminaUtenti()"> ELIMINA UTENTI </button>
+
+        </div>
+    </div>
+
+
+   
+
+
+
+</div>
+
+<!-------------- ACCOUNT USER ------------->
+
+
+<div *ngIf="user && userType">
+    <h2>DATI PERSONALI</h2>
+    <!-- <div>
+        <button mat-button class="custom-button" mat-raised-button (click)="mostraFormEmail()">Modifica Email
+        </button>
+        <button mat-button class="custom-button" (click)="mostraFormPass()">Modifica Password
+        </button>
+        <button mat-button class="custom-button" (click)="mostraInformazioni()"> Visualizza dati
+        </button>
+    </div> -->
+    <!-------------- CARD DATI USER ------------->
+
+    <div *ngIf="user && userType">
+        <form *ngIf="showInformation">
+            <div class="card form-dati">
+                <div class="card-header">
+                    <h5 class="card-title">INFORMAZIONI PERSONALI</h5>
+                </div>
+                <div class="card-body">
+                    <h3 style="margin-top: 15px;">Nome : {{user.nome}}</h3>
+                    <h3 style="margin-top: 35px;">Cognome : {{user.cognome}}</h3>
+                    <h3 style="margin-top: 35px;">Email : {{user.email}}</h3>
+                </div>
+            </div>
+        </form>
+    </div>
+    
+
+
+    <!------FORM PER MODIFICA EMAIL---->
+    <form class="formUpdateEmail" *ngIf="mostraFormModifica" [formGroup]="form">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title">MODIFICA EMAIL</h5>
+            </div>
+            <div class="card-body">
+                <h3>Inserisci la nuova email.</h3>
+                <div class="form-group">
+                    <label for="email">Nuova email</label>
+                    <input type="text" class="form-control" id="email" formControlName="email">
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary" (click)="updateEmail()">Modifica</button>
+                <button class="btn btn-secondary" (click)="annulla()">Annulla</button>
+            </div>
+        </div>
+    </form>
+    
+
+    <!------FORM PER AGGIORNAMENTO PASSWORD------->
+    <form class="formUpdatePasswordUser" *ngIf="mostraFormModificaP" [formGroup]="form">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="card-title text-center">MODIFICA PASSWORD</h5>
+            </div>
+            <div class="card-body">
+                <h3 style="margin-top: 20px;">Inserisci la password attuale</h3>
+                <div class="form-group">
+                    <label for="oldPassword">Password attuale</label>
+                    <input type="password" class="form-control" id="oldPassword" formControlName="oldPassword">
+                </div>
+                <h3 style="margin-top: 20px;">Inserisci la nuova password</h3>
+                <div class="form-group">
+                    <label for="password">Nuova password</label>
+                    <input type="password" class="form-control" id="password" formControlName="password">
+                </div>
+                <h3 style="margin-top: 20px;">Reinserisci la nuova password</h3>
+                <div class="form-group">
+                    <label for="confirmPassword">Conferma password</label>
+                    <input type="password" class="form-control" id="confirmPassword" formControlName="confirmPassword">
+                </div>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-primary" (click)="modificaPassowordUser()">Modifica Password</button>
+                <button class="btn btn-secondary" (click)="annulla()">Annulla</button>
+            </div>
+        </div>
+    </form>
+    
+    <div class="row">
+        <div class="col-4 text-center">
+
+            <button  class="custom-button  btn btn-primary " (click)="mostraFormEmail()"> MODIFICA MAIL </button>
+        </div>
+        <div class="col-4 text-center">
+            <button  class="custom-button btn btn-primary" (click)="mostraFormPass()"> MODIFICA PASSWORD </button>
+
+        </div>
+        <div class="col-4 text-center">
+            <button  class="custom-button btn btn-primary " (click)="mostraInformazioni()"> VISUALIZZA DATI </button>
+
+        </div>
+    </div>
+
+
+
+</div>
